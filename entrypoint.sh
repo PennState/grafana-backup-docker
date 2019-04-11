@@ -11,7 +11,7 @@ done
 
 mkdir -p $GRAFANA_BACKUP_PATH
 
-ts=$(date --iso-8601=seconds)
+ts=$(date -Iseconds)
 
 alias python=python3
 
