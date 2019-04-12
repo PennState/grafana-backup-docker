@@ -13,8 +13,6 @@ mkdir -p $GRAFANA_BACKUP_PATH
 
 ts=$(date -Iseconds)
 
-alias python=python3
-
 # create backups
 for d in Dashboards Datasources Folders ; do
 	p=${GRAFANA_BACKUP_PATH}/${ts}/${d}
@@ -25,4 +23,10 @@ for d in Dashboards Datasources Folders ; do
 done
 
 # delete all but the most recent n backups
-ls -1tr | head -n -${GRAFANA_BACKUPS_TO_KEEP} | xargs -d '\n' -f -- 2>/dev/null
+echo
+echo "#############################################"
+echo "Existing backups:"
+ls -1tr $GRAFANA_BACKUP_PATH
+echo
+echo "Removing all but the most recent $GRAFANA_BACKUPS_TO_KEEP backups"
+ls -1tr $GRAFANA_BACKUP_PATH | head -n -${GRAFANA_BACKUPS_TO_KEEP} | xargs -I '{}' rm -rfv $GRAFANA_BACKUP_PATH/'{}'
