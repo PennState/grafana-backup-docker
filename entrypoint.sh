@@ -14,13 +14,9 @@ mkdir -p $GRAFANA_BACKUP_PATH
 ts=$(date -Iseconds)
 
 # create backups
-for d in Dashboards Datasources Folders ; do
-	p=${GRAFANA_BACKUP_PATH}/${ts}/${d}
-	mkdir -p ${p}
-	python /opt/grafana-backup-tool/save${d}.py ${p} || exit 0
-	tar -czvf ${p}.tar.gz ${p}
-	rm -rf ${p}
-done
+export BACKUP_DIR=${GRAFANA_BACKUP_PATH}/${ts}/${d}
+
+grafana-backup save
 
 # delete all but the most recent n backups
 echo
