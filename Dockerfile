@@ -1,6 +1,6 @@
-FROM alpine:3.12
+FROM alpine:3.14
 
-ENV REF master
+ENV REF 1.1.8
 ENV URL https://github.com/ysde/grafana-backup-tool/archive/${REF}.zip
 
 RUN apk update && apk upgrade \
