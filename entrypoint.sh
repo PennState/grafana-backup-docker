@@ -14,9 +14,10 @@ mkdir -p $GRAFANA_BACKUP_PATH
 ts=$(date -Iseconds)
 
 # create backups
-export BACKUP_DIR=${GRAFANA_BACKUP_PATH}/${ts}/${d}
+export BACKUP_DIR=${GRAFANA_BACKUP_PATH}/${ts}
 
 grafana-backup save
+rmdir $BACKUP_DIR/{datasources,folders,alert_channels,dashboards}
 
 # delete all but the most recent n backups
 echo
