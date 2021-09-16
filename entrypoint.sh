@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-declare -a envvars=(GRAFANA_BACKUP_PATH GRAFANA_BACKUPS_TO_KEEP GRAFANA_URL GRAFANA_TOKEN)
+GRAFANA_BACKUP_DEBUG="${GRAFANA_BACKUP_DEBUG:-false}"
+GRAFANA_BACKUPS_TO_KEEP="${GRAFANA_BACKUPS_TO_KEEP:-7}"
+
+declare -a envvars=(GRAFANA_BACKUP_PATH GRAFANA_URL GRAFANA_TOKEN)
 
 for v in "${envvars[@]}" ; do
 	if [ -z "$(eval "echo \$$v")" ] ; then
@@ -8,6 +11,7 @@ for v in "${envvars[@]}" ; do
 		exit 1
 	fi
 done
+
 
 mkdir -p $GRAFANA_BACKUP_PATH
 
