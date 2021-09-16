@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GRAFANA_BACKUP_DEBUG="${GRAFANA_BACKUP_DEBUG:-false}"
+DEBUG="${DEBUG:-false}"
 GRAFANA_BACKUPS_TO_KEEP="${GRAFANA_BACKUPS_TO_KEEP:-7}"
 
 declare -a envvars=(GRAFANA_BACKUP_PATH GRAFANA_URL GRAFANA_TOKEN)
@@ -19,6 +19,7 @@ ts=$(date -Iseconds)
 
 # create backups
 export BACKUP_DIR=${GRAFANA_BACKUP_PATH}/${ts}
+export DEBUG
 
 grafana-backup save
 rmdir $BACKUP_DIR/{datasources,folders,alert_channels,dashboards}
